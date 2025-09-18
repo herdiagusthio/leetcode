@@ -4,7 +4,7 @@ LeetCode problem: Longest Consecutive Sequence
 
 Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
 
-- Link: https://leetcode.com/problems/longest-consecutive/
+- Link: https://leetcode.com/problems/longest-consecutive-sequence
 
 ## Solution
 This folder contains an O(n) solution using a hash set (`map[int]struct{}`) to detect sequence starts and expand consecutive runs.
