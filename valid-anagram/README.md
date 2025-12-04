@@ -1,25 +1,28 @@
 # Valid Anagram
 
-LeetCode problem: https://leetcode.com/problems/valid-anagram/description/
+LeetCode problem: Valid Anagram
 
-## Problem
+Link: https://leetcode.com/problems/valid-anagram/description/
+
 Given two strings `s` and `t`, return true if `t` is an anagram of `s`, and false otherwise. Both strings consist of lowercase English letters.
 
-## How the solution works (short)
-The provided `isAnagram` implementation counts characters in `s` into a map, then decrements counts while scanning `t`; if any count goes negative it returns false. This yields O(n) time and O(1) space relative to the alphabet size.
-
-## Complexity
-- Time: O(n) — single pass to count and single pass to verify.
-- Space: O(1) — counts limited to lowercase English letters (effectively constant).
+## Solution
+The provided `isAnagram` implementation counts characters in `s` into a map (or array), then decrements counts while scanning `t`; if any count goes negative it returns false. This yields O(n) time and O(1) space relative to the alphabet size.
 
 ## How to run
+From this folder:
 
 ```bash
-go run solution.go
+go test -v
 ```
 
-## Run tests
+To run the example `main` in this package:
 
 ```bash
-go test
+go run .
 ```
+
+## Files
+- `solution.go` — implementation and example `main`.
+- `solution_test.go` — unit tests.
+- `EXPLANATION.md` — step-by-step explanation of the approach.

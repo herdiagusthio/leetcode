@@ -1,17 +1,10 @@
 # Explanation — Reverse Vowels of a String
 
 ## Problem
-Given a string `s`, reverse only all the vowels in the string and return it.
-
-Vowels are `a`, `e`, `i`, `o`, `u` in both lower and upper case. Other characters remain in their original positions.
-
-Examples:
-- `"IceCreAm"` -> `"AceCreIm"`
-- `"leetcode"` -> `"leotcede"`
+Given a string `s`, reverse only all the vowels in the string and return it. Vowels are `a`, `e`, `i`, `o`, `u` in both lower and upper case. Other characters remain in their original positions.
 
 ## Idea
 Use a two-pointer approach on a slice of runes:
-
 - Convert the input string to `[]rune` so the algorithm handles multi-byte characters correctly.
 - Maintain two indices `i` (left) and `j` (right). Move `i` forward until it points to a vowel, and move `j` backward until it points to a vowel.
 - When both `i` and `j` point to vowels and `i < j`, swap the runes at `i` and `j`, then advance `i` and decrement `j`.
@@ -29,7 +22,7 @@ This swaps only vowel characters in place (within the rune slice) and preserves 
 
 ## Complexity
 - Time: O(n) — each character is examined at most once by the two pointers.
-- Space: O(n) additional for the `[]rune` conversion of the input string. If the input were guaranteed ASCII-only and you used `[]byte` instead, the additional memory could be reduced.
+- Space: O(n) additional for the `[]rune` conversion of the input string.
 
 ## Alternatives
 - Collect all vowels into a separate slice and then write them back in reverse order. This is still O(n) time but uses another O(k) extra memory where `k` is number of vowels.
@@ -37,4 +30,4 @@ This swaps only vowel characters in place (within the rune slice) and preserves 
 
 ## Implementation notes
 - The implementation in this package uses a `switch`-based `isVowel` function for readability and speed.
-- Using `[]rune` ensures correctness for multi-byte characters (UTF-8). If you know inputs are strictly ASCII, switching to `[]byte` saves allocations and may be faster.
+- Using `[]rune` ensures correctness for multi-byte characters (UTF-8).

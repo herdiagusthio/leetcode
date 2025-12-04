@@ -1,43 +1,35 @@
 # Explanation — Two Sum II (Input Array Is Sorted)
 
-This document explains the two-pointer solution used in `solution.go` for the LeetCode problem "Two Sum II - Input Array Is Sorted".
+## Problem
+Given a 1-indexed array of integers `numbers` that is already sorted in non-decreasing order, find two numbers such that they add up to a specific `target` number. Return the indices of the two numbers (1-based) as an integer array `[index1, index2]`.
 
-High-level idea
-----------------
+## Idea
 Because the input array `numbers` is sorted in non-decreasing order, we can maintain two indices:
-
 - `left` starting at 0 (the first element)
 - `right` starting at n-1 (the last element)
 
 At each step compute `sum = numbers[left] + numbers[right]`:
-
 - If `sum == target` we found the pair. Return `[left+1, right+1]` (the problem uses 1-based indices).
 - If `sum < target` the current sum is too small; increment `left` to increase the sum.
 - If `sum > target` the current sum is too large; decrement `right` to decrease the sum.
 
-Why it works
-------------
-When the array is sorted, moving `left` rightwards increases the sum (or keeps it same if duplicates), and moving `right` leftwards decreases the sum. The two-pointer movement explores the space of possible pairs efficiently and each element is examined at most once.
+## Algorithm (step-by-step)
+1. Initialize `left = 0` and `right = len(numbers) - 1`.
+2. Loop while `left < right`:
+   - Calculate `sum = numbers[left] + numbers[right]`.
+   - If `sum == target`, return `[]int{left + 1, right + 1}`.
+   - If `sum < target`, increment `left`.
+   - If `sum > target`, decrement `right`.
+3. If no pair is found (though the problem guarantees one), return `nil`.
 
-Step-by-step example
---------------------
-Input: numbers = [2,7,11,15], target = 9
-
-1. left=0 (2), right=3 (15): sum=17 > 9 -> right--
-2. left=0 (2), right=2 (11): sum=13 > 9 -> right--
-3. left=0 (2), right=1 (7): sum=9 == target -> return [1,2]
-
-Complexity
-----------
+## Complexity
 - Time: O(n) — single pass using two pointers.
 - Space: O(1) — constant extra space.
 
-Edge cases
-----------
-- The problem guarantees exactly one solution and n >= 2, so the algorithm will always find and return a valid pair.
-- If you run this on invalid input (unsorted array or no solution), the function returns `nil` in our implementation. For production code you might return an error or panic depending on your needs.
+## Alternatives
+- **Hash Map**: If the array were unsorted, use a hash map (value -> index) to find complements. This uses O(n) extra space.
+- **Binary Search**: For each element, binary search for the complement. This is O(n log n).
 
-Follow-ups
-----------
-- If the array were unsorted and you needed an O(n) solution, use a hash map (value -> index) to find complements, but that uses O(n) extra space.
-- If you need to enumerate all unique pairs that sum to target in a sorted array (instead of returning one), the two-pointer pattern adapts by moving pointers inward and skipping duplicates.
+## Implementation notes
+- The problem guarantees exactly one solution and n >= 2, so the algorithm will always find and return a valid pair.
+- If you run this on invalid input (unsorted array or no solution), the function returns `nil`.

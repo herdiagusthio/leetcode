@@ -1,13 +1,7 @@
 # Explanation — Reverse Words in a String
 
 ## Problem
-Given an input string `s`, reverse the order of the words. A word is defined as a sequence of non-space characters.
-
-The returned string should have the words in reverse order, separated by a single space, and no leading or trailing spaces.
-
-Examples:
-- `"the sky is blue"` -> `"blue is sky the"`
-- `"  hello world!  "` -> `"world! hello"`
+Given an input string `s`, reverse the order of the words. A word is defined as a sequence of non-space characters. The returned string should have the words in reverse order, separated by a single space, and no leading or trailing spaces.
 
 ## Idea
 Split the input into words using `strings.Fields`, which trims leading/trailing whitespace and collapses multiple spaces. Then reverse the slice of words and join them with a single space.

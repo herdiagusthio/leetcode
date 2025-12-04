@@ -2,30 +2,24 @@
 
 LeetCode problem: Longest Consecutive Sequence
 
-Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
+Link: https://leetcode.com/problems/longest-consecutive-sequence
 
-- Link: https://leetcode.com/problems/longest-consecutive-sequence
+Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
 
 ## Solution
 This folder contains an O(n) solution using a hash set (`map[int]struct{}`) to detect sequence starts and expand consecutive runs.
 
 ## How to run
-From this folder, run:
+From this folder:
 
 ```bash
 go test -v
 ```
 
-Or from repo root:
+To run the example `main` in this package:
 
 ```bash
-go test ./longest-consecutive-sequence -v
-```
-
-Benchmarks:
-
-```bash
-go test -bench .
+go run .
 ```
 
 ## Files

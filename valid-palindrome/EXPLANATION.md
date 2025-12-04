@@ -1,42 +1,29 @@
 # Explanation — Valid Palindrome
 
-This document explains the approach used in `solution.go` to determine whether a given string is a palindrome when only alphanumeric characters are considered and case is ignored.
+## Problem
+Given a string s, return true if it is a palindrome after removing all non-alphanumeric characters and ignoring case. Alphanumeric characters include letters and numbers.
 
-High-level idea
-----------------
-1. Remove characters that are not letters or digits. We use a precompiled regular expression `[^a-zA-Z0-9]+` to replace non-alphanumeric characters with an empty string.
+## Idea
+1. Remove characters that are not letters or digits.
 2. Convert the resulting string to lowercase so that comparisons are case-insensitive.
 3. Use two indices (front and back) and compare characters while moving towards the center. If any pair differs, the string is not a palindrome.
 
-Why this works
----------------
-- Removing non-alphanumeric characters explicitly matches the problem statement and simplifies later comparisons.
-- Lowercasing before comparing avoids having to handle case differences during the two-pointer sweep.
-- Two-pointer comparison is efficient (single pass) and obvious to reason about: a palindrome reads the same forwards and backwards, so every corresponding pair must match.
+## Algorithm (step-by-step)
+1. Clean the string: remove non-alphanumerics using regex or manual check.
+2. Lowercase the string.
+3. Initialize `left = 0` and `right = len(s) - 1`.
+4. While `left < right`:
+   - If `s[left] != s[right]`, return `false`.
+   - `left++`, `right--`.
+5. Return `true`.
 
-Step-by-step example
---------------------
-Input: "A man, a plan, a canal: Panama"
+## Complexity
+- Time: O(n) — single pass (cleaning + comparing).
+- Space: O(n) — for storing the cleaned string.
 
-1. Remove non-alphanumerics: "AmanaplanacanalPanama"
-2. Lowercase: "amanaplanacanalpanama"
-3. Two-pointer checks:
-   - Compare index 0 and last -> 'a' == 'a'
-   - Compare index 1 and second-last -> 'm' == 'm'
-   - ... continue until the center. All comparisons match → palindrome.
+## Alternatives
+- **In-place Two Pointers**: Skip non-alphanumeric characters inside the loop without creating a new string. This achieves O(1) space.
 
-Edge cases
-----------
+## Implementation notes
 - Empty string and strings with only non-alphanumeric characters (e.g., "., ") are considered palindromes (returns true).
-- Mixed ASCII and punctuation are handled correctly by the cleaning step.
-- This implementation is byte-oriented after cleaning and lowercasing, which is fine for ASCII inputs. For inputs with multi-byte Unicode letters, consider a rune-aware approach.
-
-Complexity recap
------------------
-- Time: O(n)
-- Space: O(n)
-
-Follow-ups
-----------
-- Rune-aware version: if you expect Unicode letters/digits, replace the cleaning and byte comparisons with a rune-based two-pointer scan (or decode runes on the fly using utf8.DecodeRuneInString).
-- Normalization: For user-facing text, consider Unicode normalization (NFC/NFD) if combining marks may appear.
+- This implementation is byte-oriented after cleaning and lowercasing, which is fine for ASCII inputs.

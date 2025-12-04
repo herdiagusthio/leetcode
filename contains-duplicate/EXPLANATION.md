@@ -3,10 +3,6 @@
 ## Problem
 Given an integer array `nums`, determine whether any value appears at least twice. Return `true` if a duplicate exists, otherwise return `false`.
 
-Examples:
-- `[1,2,3,1]` -> `true`
-- `[1,2,3,4]` -> `false`
-
 ## Idea
 Use a hash set to record numbers we have seen while iterating the array. For each number:
 - If it's already in the set, we found a duplicate — return `true` immediately.
@@ -33,5 +29,3 @@ This approach finds duplicates quickly (early return) and is O(n) time on averag
 ## Implementation notes
 - The solution uses `map[int]struct{}` as a set to avoid counting and minimize memory per entry.
 - The function returns as soon as a duplicate is found to minimize work.
-
-*** End Patch

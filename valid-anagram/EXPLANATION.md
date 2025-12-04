@@ -1,21 +1,27 @@
 # Explanation — Valid Anagram
 
-This document explains the `isAnagram` implementation in `solution.go`.
+## Problem
+Given two strings `s` and `t`, return true if `t` is an anagram of `s`, and false otherwise. Both strings consist of lowercase English letters.
 
-## Contract
-- Input: `s`, `t` strings consisting of lowercase English letters.
-- Output: `bool` — true if `t` is an anagram of `s`, false otherwise.
-
-## High-level approach
+## Idea
 Count characters of `s` and decrement counts for `t`. If any count becomes negative, `t` contains more of a character than `s` and the function returns false. If all counts match, the strings are anagrams.
 
-## Why this is efficient
-- Time: single pass over each string → O(n).
-- Space: counts limited to the alphabet size (26) → O(1).
+## Algorithm (step-by-step)
+1. Check if lengths of `s` and `t` are different. If so, return `false`.
+2. Initialize a frequency map (or array of size 26).
+3. Iterate through `s` and increment counts for each character.
+4. Iterate through `t` and decrement counts for each character.
+   - If a count drops below zero, return `false`.
+5. Return `true`.
 
-## Edge cases
+## Complexity
+- Time: O(n) — single pass over each string.
+- Space: O(1) — counts limited to the alphabet size (26).
+
+## Alternatives
+- **Sorting**: Sort both strings and compare them. Time O(n log n), Space O(1) or O(n) depending on sort implementation.
+
+## Implementation notes
 - Different lengths → immediately false.
 - Empty strings of equal length → true.
-
-## Suggestion
-Given the constraints (lowercase English letters only), a fixed-size array (`[26]int`) is slightly faster and uses no map allocations. The current map-based implementation is correct and more general (handles Unicode) but uses small extra overhead.
+- Given the constraints (lowercase English letters only), a fixed-size array (`[26]int`) is slightly faster and uses no map allocations.

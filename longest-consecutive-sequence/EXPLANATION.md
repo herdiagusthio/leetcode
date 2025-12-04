@@ -3,10 +3,6 @@
 ## Problem
 Given an unsorted array of integers, return the length of the longest sequence of consecutive integers.
 
-Examples:
-- [100, 4, 200, 1, 3, 2] -> longest consecutive run is [1,2,3,4] so answer = 4.
-- [] -> 0
-
 ## Idea
 We want an O(n) solution. Sorting would be O(n log n), so instead we use a hash set to get O(1) lookups and detect the starts of sequences.
 
@@ -23,10 +19,6 @@ We want an O(n) solution. Sorting would be O(n log n), so instead we use a hash 
 - Time: O(n) average — every number is inserted once and visited at most twice (once as a set element, once during expansion).
 - Space: O(n) for the set.
 
-## Why this avoids repeated work
-We only expand sequences from numbers that do not have a predecessor. This guarantees each consecutive sequence is expanded exactly once, preventing O(k^2) behavior on chains of length k.
-
 ## Implementation notes
+- We only expand sequences from numbers that do not have a predecessor. This guarantees each consecutive sequence is expanded exactly once.
 - We use `map[int]struct{}` as a set to minimize memory overhead compared to `map[int]bool`.
-- If the value range is known and small, an indexed boolean slice can be faster and use less memory than a map.
-- The provided benchmark creates a long consecutive array to measure the performance of the expansion loop.

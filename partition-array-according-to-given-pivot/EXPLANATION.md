@@ -1,50 +1,37 @@
-Explanation — Partition Array According to Given Pivot
-======================================================
+# Explanation — Partition Array According to Given Pivot
 
-Problem recap
---------------
+## Problem
+Given a 0-indexed integer array `nums` and an integer `pivot`, rearrange `nums` so that:
+- Every element less than `pivot` appears before every element greater than `pivot`.
+- Every element equal to `pivot` appears in between the elements less than and greater than `pivot`.
+- The relative order of the elements less than `pivot` and the elements greater than `pivot` is maintained.
 
-We must reorder `nums` so that all elements less than `pivot` come first, elements equal to `pivot` in the middle, and elements greater than `pivot` last. The relative order of elements within the "less-than" group and within the "greater-than" group must be preserved (stable partition).
+## Idea
+A simple, stable approach is to collect elements into three buckets while scanning the array:
+- `left` for elements < pivot
+- `mid` for elements == pivot
+- `right` for elements > pivot
 
-Approaches implemented
-----------------------
+Then concatenate `left + mid + right`. This preserves the relative order inside each partition.
 
-1) Three buckets (pivotArray)
-   - Walk the input once, appending items to three slices: `left`, `mid`, `right`.
-   - Return `append(append(left, mid...), right...)`.
-   - Pros: Simple, stable, easy to read.
-   - Cons: May cause multiple allocations if capacities aren't pre-sized.
+## Algorithm (step-by-step)
+1. Initialize three empty slices: `left`, `mid`, `right`.
+2. Iterate through `nums`:
+   - If `num < pivot`, append to `left`.
+   - If `num == pivot`, append to `mid`.
+   - If `num > pivot`, append to `right`.
+3. Concatenate `left`, `mid`, and `right` to form the result.
+4. Return the result.
 
-2) Preallocated buckets (pivotArrayPrealloc)
-   - Same logic as (1) but we preallocate each bucket's capacity using a heuristic (input length or a small growth factor) to reduce reallocations.
-   - Slightly more efficient in practice for large inputs.
+## Complexity
+- Time: O(n) — single pass (or two passes for optimized variants).
+- Space: O(n) extra — buckets or one preallocated result slice.
 
-3) Two-pass preallocate-and-fill (pivotArrayCount)
-   - First pass: count numbers in each partition to compute the exact size of the resulting slice.
-   - Allocate a single result slice with len == n and use three pointers to fill the result in one more pass.
-   - Pros: Minimal allocations (one result slice), predictable memory.
-   - Cons: Slightly more code; still O(n) time and O(n) extra space.
+## Alternatives
+- **Preallocated buckets**: Same logic but preallocates capacities to reduce reallocations.
+- **Two-pass preallocate-and-fill**: First pass counts numbers to compute exact size, second pass fills the result. Best for minimizing allocations.
+- **In-place DNF**: The Dutch National Flag algorithm is O(1) space but unstable (does not preserve relative order), so it is not suitable here.
 
-Why not in-place DNF?
-----------------------
-
-The Dutch National Flag (DNF) algorithm partitions an array in-place into three parts in O(n) time and O(1) extra space. However, it does not preserve the relative order of elements — it's unstable. The LeetCode problem explicitly requires preserving relative order for elements less than and greater than the pivot. Therefore, DNF is not acceptable here unless stability is relaxed. For demonstration, a DNF variant can be implemented but was removed from the default solutions to respect the problem constraints.
-
-Complexity
-----------
-
-- Time: O(n) for all stable variants. The two-pass variant does two linear passes but still O(n).
-- Space: O(n) extra — either multiple small slices (buckets) or a single preallocated result slice.
-
-Edge cases and tests
---------------------
-
-- Empty input and single-element arrays.
-- All elements equal to pivot (result equals input).
-- Duplicates around pivot (stability verified in tests).
-
-Notes
------
-
-- For production code where minimizing allocations matters, prefer `pivotArrayCount`.
-- Keep the `pivot` guaranteed to exist in `nums` as the problem states; otherwise, handle missing pivot by treating it as an ordinary value.
+## Implementation notes
+- For production code where minimizing allocations matters, prefer the two-pass approach.
+- The `pivot` is guaranteed to exist in `nums`.
